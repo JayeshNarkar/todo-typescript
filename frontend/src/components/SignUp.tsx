@@ -19,7 +19,20 @@ export default function SignUp() {
     <div>
       <h1>Sign Up</h1>
       <div>
-        <form onSubmit={handleSignUp}></form>
+        <form onSubmit={handleSignUp}>
+          <div>
+            <label htmlFor="username">username</label>
+            <input type="text" id="username" required />
+          </div>
+          <div>
+            <label htmlFor="password">password</label>
+            <input type="password" id="password" required />
+          </div>
+          <div>
+            <label htmlFor="password">password</label>
+            <input type="password" id="password" required />
+          </div>
+        </form>
       </div>
       <p>
         Already have an account?{" "}

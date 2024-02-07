@@ -11,9 +11,14 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 function App() {
-  return <MainApp />;
+  return (
+    <RecoilRoot>
+      <MainApp />
+    </RecoilRoot>
+  );
 }
 
 function MainApp() {

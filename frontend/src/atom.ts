@@ -5,17 +5,17 @@ export const usernameAtom = atom<string>({
   default: "",
 });
 
-export const password = atom<string>({
+export const passwordAtom = atom<string>({
   key: "password",
   default: "",
 });
 
-export const userId = atom<number>({
+export const userIdAtom = atom<number>({
   key: "userId",
   default: -1,
 });
 
-export const todoList = atom<object[]>({
+export const todoListAtom = atom<object[]>({
   key: "todoList",
   default: [],
 });

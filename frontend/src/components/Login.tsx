@@ -1,22 +1,67 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { passwordAtom, usernameAtom } from "../atom";
 
-export default function Login() {
+export default function SignUp() {
   const navigate = useNavigate();
+  const [username, setUsername] = useRecoilState(usernameAtom);
+  const [password, setPassword] = useRecoilState(passwordAtom);
 
   useEffect(() => {
-    document.body.style.backgroundColor = "#82d1d7";
+    document.body.style.backgroundColor = "rgb(130 207 213)";
+    document.body.style.fontFamily = "sans-serif";
     return () => {
-      document.body.style.backgroundColor = ""; // Reset color on component unmount
+      document.body.style.backgroundColor = "";
+      document.body.style.fontFamily = "";
     };
   }, []);
 
+  function handleSignUp(e: any) {
+    e.preventDefault();
+  }
+
   return (
     <div>
-      <h1>login</h1>
-      <p>
+      <h1 className="text-3xl font-bold m-3 text-center md:text-4xl mt-4">
+        Login
+      </h1>
+      <p className="text-center md:text-xl">Hello, welcome back</p>
+      <div className="flex justify-center m-3 md:text-xl">
+        <form onSubmit={handleSignUp}>
+          <div>
+            <input
+              className="rounded-md border-2 border-gray-500 p-2 m-2 w-60"
+              type="text"
+              id="username"
+              value={username}
+              autoComplete="username"
+              placeholder="@ Username"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              required
+            />
+          </div>
+          <div>
+            <input
+              className="rounded-md border-2 border-gray-500 p-2 m-2 w-60"
+              type="password"
+              id="password"
+              value={password}
+              placeholder="|** Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+            />
+          </div>
+        </form>
+      </div>
+      <p className="m-3 text-center text-xl md:text-2xl">
         Don't have an account?{" "}
         <button
+          className="active:underline text-purple-700 active:text-purple-900"
           onClick={() => {
             navigate("/signup");
           }}

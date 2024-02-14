@@ -1,14 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { passwordAtom, usernameAtom } from "../atom";
+import { isAuthenticatedAtom, passwordAtom, usernameAtom } from "../atom";
+import axios from "axios";
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [username, setUsername] = useRecoilState(usernameAtom);
   const [password, setPassword] = useRecoilState(passwordAtom);
+  const [isAuthenticated, setIsAuthenticated] =
+    useRecoilState(isAuthenticatedAtom);
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
     document.body.style.backgroundColor = "#fbede0";
     document.body.style.fontFamily = "sans-serif";
     return () => {
@@ -17,8 +28,33 @@ export default function SignUp() {
     };
   }, []);
 
-  function handleSignUp(e: any) {
+  async function handleSignUp(e: any) {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const response = await axios.post("http://localhost:3000/api/users", {
+        username,
+        password,
+      });
+      setErrorMessage("");
+      setUsername(response.data.username);
+      localStorage.setItem("username", response.data.username);
+      localStorage.setItem("userId", response.data.id);
+      setIsAuthenticated(true);
+      navigate("/");
+      setSuccessMessage(response.data.message);
+    } catch (error: any) {
+      setSuccessMessage("");
+      setErrorMessage(error.response.data.error || error.response.data.message);
+    } finally {
+      setIsLoading(false);
+      setPassword("");
+      setConfirmPassword("");
+    }
   }
 
   return (
@@ -64,8 +100,23 @@ export default function SignUp() {
               type="password"
               id="passwordConfirm"
               placeholder="✍ Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
               required
             />
+          </div>
+          <p className="text-green-500 text-xl text-center">{successMessage}</p>
+          <p className="text-red-500 text-xl text-center">{errorMessage}</p>
+          <div>
+            <button
+              className="rounded-md p-2 m-2 w-60 bg-blue-400 text-black text-xl disabled:bg-blue-700"
+              type="submit"
+              disabled={isLoading}
+            >
+              Create Account
+            </button>
           </div>
         </form>
       </div>

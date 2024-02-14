@@ -24,12 +24,12 @@ todoRoute.post("/todos", async (req, res) => {
   try {
     const newTodo = await prisma.todo.create({
       data: {
-        userId,
+        userId: parseInt(userId),
         title,
         description,
       },
     });
-    res.json("Todo created successfully");
+    res.json({ message: "Todo created successfully", id: newTodo.id });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

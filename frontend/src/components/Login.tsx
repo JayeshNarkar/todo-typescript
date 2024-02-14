@@ -31,7 +31,7 @@ export default function Login() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/api/login", {
+      const response = await axios.post("/api/login", {
         username,
         password,
       });

@@ -21,7 +21,7 @@ const defaultTodos = selector({
   get: async () => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await axios.get(`http://localhost:3000/api/todos`, {
+      const response = await axios.get(`/api/todos`, {
         userId: id,
       });
       return response.data;
@@ -41,7 +41,7 @@ const defaultIsAuthenticated = selector({
   get: async () => {
     const id = localStorage.getItem("userId");
     try {
-      await axios.get(`http://localhost:3000/api/users/${id}`);
+      await axios.get(`/api/users/${id}`);
       return true;
     } catch (err) {
       localStorage.removeItem("userId");

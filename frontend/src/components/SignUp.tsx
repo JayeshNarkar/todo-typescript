@@ -36,7 +36,7 @@ export default function SignUp() {
     }
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/api/users", {
+      const response = await axios.post("/api/users", {
         username,
         password,
       });

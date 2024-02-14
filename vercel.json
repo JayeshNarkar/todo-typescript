@@ -2,9 +2,12 @@
     "version": 2,
     "builds": [
         {
-            "src": "dist/index.js",
+            "src": "backend/tsconfig.json",
             "use": "@vercel/node",
-            "config": { "includeFiles": ["dist/**"] }
+            "config": {
+                "includeFiles": "dist/**",
+                "buildCommand": "tsc -b && node dist/index.js"
+            }
         },
         {
             "src": "frontend/package.json",

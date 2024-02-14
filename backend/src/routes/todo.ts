@@ -5,8 +5,8 @@ const prisma = new PrismaClient();
 
 const todoRoute = express.Router();
 
-todoRoute.get("/todos", async (req, res) => {
-  const { userId } = req.body;
+todoRoute.get("/todos/:id", async (req, res) => {
+  const userId = Number(req.params.id);
   try {
     const todos = await prisma.todo.findMany({
       where: {

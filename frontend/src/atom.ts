@@ -21,9 +21,7 @@ const defaultTodos = selector({
   get: async () => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await axios.get(`/api/todos`, {
-        userId: id,
-      });
+      const response = await axios.get(`/api/todos/${id}`);
       return response.data;
     } catch (error) {
       return [];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { isAuthenticatedAtom, todoListAtom } from "../atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isAuthenticatedAtom, todoListAtom, usernameAtom } from "../atom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -14,6 +14,7 @@ export default function AddTodo() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const setusername = useSetRecoilState(usernameAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function AddTodo() {
     localStorage.removeItem("username");
     localStorage.removeItem("userId");
     setIsAuthenticated(false);
+    setusername("");
     navigate("/login");
   };
 
@@ -58,6 +60,7 @@ export default function AddTodo() {
       setErrorMessage(error.response.data.error);
       console.log(error);
     } finally {
+      setSuccessMessage("");
       setIsLoading(false);
     }
   }
@@ -90,7 +93,7 @@ export default function AddTodo() {
   return (
     <div>
       <div className="flex justify-between mb-3 md:mb-0">
-        <h1 className="text-2xl font-bold m-1 p-2">Your Todos:</h1>
+        <h1 className="text-2xl font-bold m-1 p-2">Todo app in Typescript!</h1>
         <button
           onClick={logOutHandler}
           className="bg-slate-500 active:bg-slate-700 text-white rounded-md m-2 p-2 text-xl"
@@ -144,7 +147,7 @@ export default function AddTodo() {
             <div className="backdrop-blur-md p-8 rounded-md shadow-md border-2 border-black">
               <h1 className="text-2xl font-bold mb-4">Your Todos:</h1>
               <ul>
-                {todos &&
+                {Array.isArray(todos) &&
                   todos.map((todo: any) => (
                     <li key={todo.id} className="mb-4">
                       <hr className="border-t-2 border-black my-4" />

@@ -24,10 +24,10 @@ This is a simple todo application built with TypeScript. The purpose of this pro
 
 ## Preview
 
-![Login](images/image.png)
-![SignUp](images/image1.png)
-![No todos created](images/image2.png)
-![Todo Created](images/image3.png)
+<img src="images/image.png" alt="Login" height="300"/>
+<img src="images/image1.png" alt="SignUp" height="300"/>
+<img src="images/image2.png" alt="No todos created" height="350"/>
+<img src="images/image3.png" alt="Todo Created" height="500"/>
 
 ## Getting Started
 

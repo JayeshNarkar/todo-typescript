@@ -22,6 +22,13 @@ This is a simple todo application built with TypeScript. The purpose of this pro
 - [Recoil](https://recoiljs.org/) - State management library for React
 - [React Router DOM](https://reactrouter.com/web/guides/quick-start) - Declarative routing for React
 
+## Preview
+
+![Login](images/image.png)
+![SignUp](images/image1.png)
+![No todos created](images/image2.png)
+![Todo Created](images/image3.png)
+
 ## Getting Started
 
 ### Prerequisites

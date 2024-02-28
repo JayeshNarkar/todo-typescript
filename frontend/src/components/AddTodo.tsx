@@ -48,7 +48,7 @@ export default function AddTodo() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.delete(`/api/todos`, {
+      const response = await axios.delete(`http://localhost:3000/api/todos`, {
         data: {
           id: id,
         },
@@ -69,7 +69,7 @@ export default function AddTodo() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("/api/todos", {
+      const response = await axios.post("http://localhost:3000/api/todos", {
         userId: localStorage.getItem("userId"),
         title,
         description,
@@ -132,7 +132,9 @@ export default function AddTodo() {
             <div className="text-red-500 text-xl mb-4">{errorMessage}</div>
           )}
           {successMessage && (
-            <div className="text-green-500 text-xl mb-4">{successMessage}</div>
+            <div className="text-green-500 text-xl mb-4 drop-shadow-md shadow-black">
+              {successMessage}
+            </div>
           )}
           <button
             type="submit"
@@ -144,7 +146,7 @@ export default function AddTodo() {
         </form>
         <div>
           {todos.length > 0 ? (
-            <div className="backdrop-blur-md p-8 rounded-md shadow-md border-2 border-black">
+            <div className="backdrop-blur-md p-8 rounded-md shadow-md border-2 border-black text-white">
               <h1 className="text-2xl font-bold mb-4">Your Todos:</h1>
               <ul>
                 {Array.isArray(todos) &&

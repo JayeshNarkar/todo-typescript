@@ -21,7 +21,9 @@ const defaultTodos = selector({
   get: async () => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await axios.get(`http://localhost:3000/api/todos/${id}`);
+      const response = await axios.get(
+        `http://172.172.247.173:8080/api/todos/${id}`
+      );
       return response.data;
     } catch (error) {
       return [];
@@ -39,7 +41,7 @@ const defaultIsAuthenticated = selector({
   get: async () => {
     const id = localStorage.getItem("userId");
     try {
-      await axios.get(`http://localhost:3000/api/users/${id}`);
+      await axios.get(`http://172.172.247.173:8080/api/users/${id}`);
       return true;
     } catch (err) {
       localStorage.removeItem("userId");

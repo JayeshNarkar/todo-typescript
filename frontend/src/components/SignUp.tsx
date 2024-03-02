@@ -36,10 +36,13 @@ export default function SignUp() {
     }
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/api/users", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "http://172.172.247.173:8080/api/users",
+        {
+          username,
+          password,
+        }
+      );
       setErrorMessage("");
       setUsername(response.data.username);
       localStorage.setItem("username", response.data.username);

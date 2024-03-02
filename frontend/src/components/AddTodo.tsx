@@ -48,7 +48,7 @@ export default function AddTodo() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.delete(`http://localhost:3000/api/todos`, {
+      const response = await axios.delete(`http://172.172.247.173:8080/api/todos`, {
         data: {
           id: id,
         },
@@ -69,7 +69,7 @@ export default function AddTodo() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/api/todos", {
+      const response = await axios.post("http://172.172.247.173:8080/api/todos", {
         userId: localStorage.getItem("userId"),
         title,
         description,

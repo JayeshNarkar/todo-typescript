@@ -31,10 +31,13 @@ export default function Login() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/api/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "http://172.172.247.173:8080/api/login",
+        {
+          username,
+          password,
+        }
+      );
       setErrorMessage("");
       setUsername(response.data.username);
       localStorage.setItem("username", response.data.username);

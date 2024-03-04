@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { isAuthenticatedAtom, todoListAtom, usernameAtom } from "../atom";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import {
+  backendUrlAtom,
+  isAuthenticatedAtom,
+  todoListAtom,
+  usernameAtom,
+} from "../atom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -15,6 +20,9 @@ export default function AddTodo() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const setusername = useSetRecoilState(usernameAtom);
+
+  const backendUrl = useRecoilValue(backendUrlAtom);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +56,7 @@ export default function AddTodo() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.delete(`http://172.172.247.173:8080/api/todos`, {
+      const response = await axios.delete(`${backendUrl}/api/todos`, {
         data: {
           id: id,
         },
@@ -69,7 +77,7 @@ export default function AddTodo() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("http://172.172.247.173:8080/api/todos", {
+      const response = await axios.post(`${backendUrl}/api/todos`, {
         userId: localStorage.getItem("userId"),
         title,
         description,

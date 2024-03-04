@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { isAuthenticatedAtom, passwordAtom, usernameAtom } from "../atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  backendUrlAtom,
+  isAuthenticatedAtom,
+  passwordAtom,
+  usernameAtom,
+} from "../atom";
 import axios from "axios";
 
 export default function Login() {
@@ -10,6 +15,7 @@ export default function Login() {
   const [password, setPassword] = useRecoilState(passwordAtom);
   const [isAuthenticated, setIsAuthenticated] =
     useRecoilState(isAuthenticatedAtom);
+  const backendUrl = useRecoilValue(backendUrlAtom);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -31,13 +37,10 @@ export default function Login() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post(
-        "http://172.172.247.173:8080/api/login",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(`${backendUrl}/api/login`, {
+        username,
+        password,
+      });
       setErrorMessage("");
       setUsername(response.data.username);
       localStorage.setItem("username", response.data.username);

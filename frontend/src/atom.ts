@@ -1,6 +1,11 @@
 import axios from "axios";
 import { atom, selector } from "recoil";
 
+export const backendUrlAtom = atom<string>({
+  key: "backendUrl",
+  default: "https://todo-backend-typescript.azurewebsites.net",
+});
+
 export const usernameAtom = atom<string>({
   key: "username",
   default: "",
@@ -18,12 +23,11 @@ export const userIdAtom = atom<number>({
 
 const defaultTodos = selector({
   key: "DefaultTodos",
-  get: async () => {
+  get: async ({ get }) => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await axios.get(
-        `http://172.172.247.173:8080/api/todos/${id}`
-      );
+      const backendUrl = get(backendUrlAtom);
+      const response = await axios.get(`${backendUrl}/api/todos/${id}`);
       return response.data;
     } catch (error) {
       return [];
@@ -38,10 +42,11 @@ export const todoListAtom = atom<object[]>({
 
 const defaultIsAuthenticated = selector({
   key: "DefaultIsAuthenticated",
-  get: async () => {
+  get: async ({ get }) => {
     const id = localStorage.getItem("userId");
     try {
-      await axios.get(`http://172.172.247.173:8080/api/users/${id}`);
+      const backendUrl = get(backendUrlAtom);
+      await axios.get(`${backendUrl}/api/users/${id}`);
       return true;
     } catch (err) {
       localStorage.removeItem("userId");
